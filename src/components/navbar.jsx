@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Button,
   Classes,
@@ -9,9 +9,9 @@ import {
   Menu,
   MenuItem,
   Divider
-} from "@blueprintjs/core";
+} from '@blueprintjs/core';
 
-import { remote } from "electron";
+import { remote } from 'electron';
 
 const showMessageBox = remote.dialog.showMessageBox;
 const app = remote.app;
@@ -25,12 +25,12 @@ export default class NavbarComponent extends React.Component {
             content={
               <Menu>
                 <MenuItem
-                  text="Add new connection"
+                  text="Add new connections"
                   onClick={() =>
                     showMessageBox({
-                      type: "info",
-                      message: "Activated",
-                      button: ["close"]
+                      type: 'info',
+                      message: 'Activated',
+                      button: ['close']
                     })
                   }
                 />
@@ -39,9 +39,9 @@ export default class NavbarComponent extends React.Component {
                   text="Connection list"
                   onClick={() =>
                     showMessageBox({
-                      type: "info",
-                      message: "Activated",
-                      button: ["close"]
+                      type: 'info',
+                      message: 'Activated',
+                      button: ['close']
                     })
                   }
                 />
