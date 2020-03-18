@@ -1,11 +1,10 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import installExtension, {
   REACT_DEVELOPER_TOOLS
 } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
+import ipc from './ipc';
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
@@ -13,7 +12,6 @@ const isDevMode = process.execPath.match(/[\\/]electron/);
 if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
 
 const createWindow = async () => {
-  // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600
@@ -21,6 +19,7 @@ const createWindow = async () => {
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/views/app/index.html`);
+  mainWindow.setMenuBarVisibility(false);
 
   // Open the DevTools.
   if (isDevMode) {
@@ -30,11 +29,10 @@ const createWindow = async () => {
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+  ipc.setup();
 };
 
 // This method will be called when Electron has finished

@@ -12,19 +12,10 @@ import {
   Divider
 } from '@blueprintjs/core';
 
-import { remote } from 'electron';
-const BrowserWindow = remote.BrowserWindow;
+import { ipcRenderer } from 'electron';
 export default class NavbarComponent extends Component {
   onClickAddConnection() {
-    var win = new BrowserWindow({ width: 800, height: 600 });
-
-    win.webContents.on('did-finish-load', () => {
-      win.show();
-      win.focus();
-    });
-    win.loadURL(
-      'file://' + __dirname + '/../../views/connection/add/index.html'
-    );
+    ipcRenderer.send('connection-add', null);
   }
   render() {
     return (
